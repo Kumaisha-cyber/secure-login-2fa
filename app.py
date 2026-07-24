@@ -64,6 +64,46 @@ def home():
 )
 def register():
 
+@app.route(
+    "/setup-2fa"
+)
+def setup_2fa():
+
+    if "username" not in session:
+
+        return redirect(
+            url_for("home")
+        )
+
+    user = User.query.filter_by(
+        username=session["username"]
+    ).first()
+
+    if not user:
+
+        return "User not found!"
+
+    totp = pyotp.TOTP(
+        user.otp_secret
+    )
+
+    provisioning_uri = totp.provisioning_uri(
+        name=user.email,
+        issuer_name="Secure Login System"
+    )
+
+    qr = qrcode.make(
+        provisioning_uri
+    )
+
+    qr.save(
+        "static/2fa_qr.png"
+    )
+
+    return render_template(
+        "setup_2fa.html"
+    )
+    
     if request.method == "POST":
 
         username = request.form["username"]
