@@ -4,8 +4,7 @@
     <title>Secure Login System</title>
 
     <link rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}">
-    
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
@@ -14,21 +13,35 @@
 
     <h2>Login</h2>
 
-    <form>
-        <input type="text" placeholder="Username" required>
+    <form method="POST" action="/login">
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            required>
+
         <br><br>
 
-        <input type="password" placeholder="Password" required>
+        <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required>
+
         <br><br>
 
-        <button type="submit">Login</button>
+        <button type="submit">
+            Login
+        </button>
+
     </form>
 
     <br>
 
     <a href="/register">
-    Create Account
-</a>
+        Create Account
+    </a>
 
 </body>
 </html>
