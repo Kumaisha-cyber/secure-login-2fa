@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import pyotp
+import qrcode
 
 app = Flask(__name__)
 
