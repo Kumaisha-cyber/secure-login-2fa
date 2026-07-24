@@ -144,6 +144,7 @@ def dashboard():
         "dashboard.html",
         username=session["username"]
     )
+    
 @app.route(
     "/verify-2fa",
     methods=["GET", "POST"]
