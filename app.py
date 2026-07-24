@@ -38,13 +38,14 @@ class User(db.Model):
         nullable=False
     )
 
-otp_secret = db.Column(
-    db.String(32),
-    nullable=True
-)
+    otp_secret = db.Column(
+        db.String(32),
+        nullable=True
+    )
 
 
 with app.app_context():
+
     db.create_all()
 
 
@@ -82,13 +83,14 @@ def register():
             password
         ).decode("utf-8")
 
-        new_user = User(
-    username=username,
-    email=email,
-    password=hashed_password,
-    otp_secret=otp_secret
-)
         otp_secret = pyotp.random_base32()
+
+        new_user = User(
+            username=username,
+            email=email,
+            password=hashed_password,
+            otp_secret=otp_secret
+        )
 
         db.session.add(new_user)
 
@@ -120,12 +122,10 @@ def login():
         password
     ):
 
-        session["username"] = username
+        session["pending_user_id"] = user.id
 
         return redirect(
-            url_for(
-                "dashboard"
-            )
+            url_for("verify_2fa")
         )
 
     return "Invalid username or password!"
@@ -133,18 +133,6 @@ def login():
 
 @app.route("/dashboard")
 def dashboard():
-
-    @app.route("/logout")
-def logout():
-
-    session.pop(
-        "username",
-        None
-    )
-
-    return redirect(
-        url_for("home")
-    )
 
     if "username" not in session:
 
@@ -155,6 +143,19 @@ def logout():
     return render_template(
         "dashboard.html",
         username=session["username"]
+    )
+
+
+@app.route("/logout")
+def logout():
+
+    session.pop(
+        "username",
+        None
+    )
+
+    return redirect(
+        url_for("home")
     )
 
 
