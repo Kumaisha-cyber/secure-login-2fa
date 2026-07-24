@@ -144,7 +144,53 @@ def dashboard():
         "dashboard.html",
         username=session["username"]
     )
+@app.route(
+    "/verify-2fa",
+    methods=["GET", "POST"]
+)
+def verify_2fa():
 
+    if "pending_user_id" not in session:
+
+        return redirect(
+            url_for("home")
+        )
+
+    user = db.session.get(
+        User,
+        session["pending_user_id"]
+    )
+
+    if not user:
+
+        return "User not found!"
+
+    if request.method == "POST":
+
+        otp = request.form["otp"]
+
+        totp = pyotp.TOTP(
+            user.otp_secret
+        )
+
+        if totp.verify(otp):
+
+            session["username"] = user.username
+
+            session.pop(
+                "pending_user_id",
+                None
+            )
+
+            return redirect(
+                url_for("dashboard")
+            )
+
+        return "Invalid OTP!"
+
+    return render_template(
+        "verify_2fa.html"
+    )
 
 @app.route("/logout")
 def logout():
