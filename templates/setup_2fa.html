@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Setup 2FA</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <h1>🔐 Setup Two-Factor Authentication</h1>
+
+    <p>Scan this QR code using your Authenticator App.</p>
+
+    <img
+        src="{{ url_for('static', filename='2fa_qr.png') }}"
+        alt="2FA QR Code">
+
+    <br><br>
+
+    <a href="/dashboard">
+        Continue to Dashboard
+    </a>
+
+</body>
+
+</html>
