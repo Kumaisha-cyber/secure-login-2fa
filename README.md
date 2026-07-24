@@ -67,7 +67,7 @@ The dashboard can only be accessed after successful authentication and 2FA verif
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/secure-login-2fa.git
+git clone https://github.com/Kumaisha-cyber/secure-login-2fa.git
 ```
 
 ### 2. Open the Project
@@ -120,7 +120,6 @@ This project demonstrates the implementation of a secure authentication system w
 
 ## 👩‍💻 Author
 
-**Abitha**
+**Kumaisha**
 
 ⭐ If you found this project useful, feel free to explore the code and learn from it.
-
