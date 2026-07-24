@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 
@@ -44,6 +44,25 @@ def home():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+
+    @app.route("/login", methods=["POST"])
+def login():
+
+    username = request.form["username"]
+    password = request.form["password"]
+
+    user = User.query.filter_by(
+        username=username
+    ).first()
+
+    if user and bcrypt.check_password_hash(
+        user.password,
+        password
+    ):
+
+        return f"Login successful! Welcome {username}"
+
+    return "Invalid username or password!"
 
     if request.method == "POST":
 
