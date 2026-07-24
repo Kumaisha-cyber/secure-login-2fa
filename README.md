@@ -120,6 +120,6 @@ This project demonstrates the implementation of a secure authentication system w
 
 ## 👩‍💻 Author
 
-**Kumaisha**
+**Abitha**
 
 ⭐ If you found this project useful, feel free to explore the code and learn from it.
