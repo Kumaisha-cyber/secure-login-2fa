@@ -83,10 +83,12 @@ def register():
         ).decode("utf-8")
 
         new_user = User(
-            username=username,
-            email=email,
-            password=hashed_password
-        )
+    username=username,
+    email=email,
+    password=hashed_password,
+    otp_secret=otp_secret
+)
+        otp_secret = pyotp.random_base32()
 
         db.session.add(new_user)
 
