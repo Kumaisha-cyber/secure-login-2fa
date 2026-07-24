@@ -4,6 +4,8 @@ from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 
+app.secret_key = "change-this-secret-key"
+
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -48,6 +50,19 @@ def register():
     @app.route("/login", methods=["POST"])
 def login():
 
+   @app.route("/dashboard")
+def dashboard():
+
+    if "username" not in session:
+        return redirect(
+            url_for("home")
+        )
+
+    return render_template(
+        "dashboard.html",
+        username=session["username"]
+    ) 
+
     username = request.form["username"]
     password = request.form["password"]
 
@@ -60,7 +75,13 @@ def login():
         password
     ):
 
-        return f"Login successful! Welcome {username}"
+        session["username"] = username
+
+return redirect(
+    url_for(
+        "dashboard"
+    )
+)
 
     return "Invalid username or password!"
 
