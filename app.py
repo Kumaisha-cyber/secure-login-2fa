@@ -38,6 +38,11 @@ class User(db.Model):
         nullable=False
     )
 
+otp_secret = db.Column(
+    db.String(32),
+    nullable=True
+)
+
 
 with app.app_context():
     db.create_all()
