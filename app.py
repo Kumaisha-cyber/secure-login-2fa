@@ -126,6 +126,18 @@ def login():
 @app.route("/dashboard")
 def dashboard():
 
+    @app.route("/logout")
+def logout():
+
+    session.pop(
+        "username",
+        None
+    )
+
+    return redirect(
+        url_for("home")
+    )
+
     if "username" not in session:
 
         return redirect(
